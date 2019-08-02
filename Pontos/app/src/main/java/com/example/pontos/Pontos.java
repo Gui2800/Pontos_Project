@@ -4,10 +4,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Pontos extends MapsActivity{
-private String Lat;
-private String Long;
-private String Descricao;
-private String Nome;
+
+    private String Lat;
+    private String Long;
+    private String Descricao;
+    private String Nome;
+    private String adress;
+
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
 
 
 
@@ -39,10 +50,11 @@ private String Nome;
         Nome = nome;
     }
 
-    public Pontos(){
-//        this.setLat(lat);
-//        this.setLong(lng);
-//        this.setDescricao(descricao);
-//        this.setNome(nome);
+    public Pontos(String lat, String lng, String descricao, String nome, String adress){
+        this.setLat(lat);
+        this.setLong(lng);
+        this.setDescricao(descricao);
+        this.setNome(nome);
+        this.setAdress(adress);
     }
 }

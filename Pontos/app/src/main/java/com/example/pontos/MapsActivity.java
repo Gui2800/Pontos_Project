@@ -25,14 +25,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int dataJson = R.raw.mapadeigarassu;
     private GoogleMap mMap;
 
+    ArrayList<String> nome = null;
+    ArrayList<String> latitude = null;
+    ArrayList<String> longitude = null;
+    ArrayList<String> adress = null;
+    ArrayList<String> descricao = null;
+
+    ArrayList<Pontos> Mpontos =  new ArrayList<Pontos>();
+
+
     public void teste() throws JSONException {
+
         location = new JSONArray(dataJson);
 
-        ArrayList<String> nome = null;
-        ArrayList<String> latitude = null;
-        ArrayList<String> longitude = null;
-        ArrayList<String> adress = null;
-        ArrayList<String> descricao = null;
 
 //        ArrayList<ArrayList> data = null;
 //        data.add(nome);
@@ -49,24 +54,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for (int i = 0; i < pontosArray.length(); i++) {
                 JSONObject pontoDetail = pontosArray.getJSONObject(i);
 
+                Mpontos.add(new Pontos(pontoDetail.getString("latitude"), pontoDetail.getString("longitude"), pontoDetail.getString("descricao"), pontoDetail.getString("name"), pontoDetail.getString("adress")));
+/*
                 nome.add(pontoDetail.getString("name"));
                 latitude.add(pontoDetail.getString("latitude"));
                 longitude.add(pontoDetail.getString("longitude"));
                 adress.add(pontoDetail.getString("adress"));
                 descricao.add(pontoDetail.getString("descricao"));
+*/
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        for (int i = 0; i < nome.size(); i++) {
-            nome.add(new latitude(String.valueOf(latitude.get(i)), longitude.get(i)));
-            mMap.addMarker(new MarkerOptions().position(ponto.get(i)).title("ponto.get(i)");
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(ponto.get(i)));
+        for (int i = 0; i < Mpontos.size(); i++) {
+            //nome.add(new latitude(String.valueOf(latitude.get(i)), longitude.get(i)));
+            //mMap.addMarker(new MarkerOptions().position(ponto.get(i)).title("ponto.get(i)"));
+            //mMap.moveCamera(CameraUpdateFactory.newLatLng(ponto.get(i)));
+            System.out.println(Mpontos.get(i).nome);
+            System.out.println(Mpontos.get(i).descricao);
+            System.out.println(Mpontos.get(i).longitude);
         }
     }
 }
