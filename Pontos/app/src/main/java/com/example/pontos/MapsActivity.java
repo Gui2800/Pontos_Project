@@ -3,28 +3,36 @@ package com.example.pontos;
 //import android.content.Intent;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.util.ArrayList;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    JSONArray location;
-    int dataJson = R.raw.mapadeigarassu;
+    JSONArray location = new JSONArray();
+    String dataJson = String.valueOf(R.raw.mapadeigarassu).toString();
     private GoogleMap mMap;
-
+    Context context;
     ArrayList<String> nome = null;
     ArrayList<String> latitude = null;
     ArrayList<String> longitude = null;
@@ -36,7 +44,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void teste() throws JSONException {
 
-        location = new JSONArray(dataJson);
+
+        String json;
+
+
+
+
+        //location = new JSONArray(R.raw.mapadeigarassu);
 
 
 //        ArrayList<ArrayList> data = null;
@@ -46,8 +60,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        data.add(adress);
 //        data.add(descricao);
 
+
         try {
-            JSONObject obj = new JSONObject(Integer.toString(dataJson));
+
+           /* InputStream is = getAssets().open("mapadeigarassu.json");
+
+            int size = is.available();
+            byte[] buffer = new byte[size];
+
+            is.read();
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+           */
+            JSONObject obj = new JSONObject(dataJson);
 
             JSONArray pontosArray = obj.getJSONArray("locations");
 
@@ -55,23 +81,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 JSONObject pontoDetail = pontosArray.getJSONObject(i);
 
                 Mpontos.add(new Pontos(pontoDetail.getString("latitude"), pontoDetail.getString("longitude"), pontoDetail.getString("descricao"), pontoDetail.getString("name"), pontoDetail.getString("adress")));
-/*
+
                 nome.add(pontoDetail.getString("name"));
                 latitude.add(pontoDetail.getString("latitude"));
                 longitude.add(pontoDetail.getString("longitude"));
                 adress.add(pontoDetail.getString("adress"));
                 descricao.add(pontoDetail.getString("descricao"));
-*/
+
 
             }
+
+            for (int i = 0; i < Mpontos.size(); i++) {
+                //nome.add(new latitude(String.valueOf(latitude.get(i)), longitude.get(i)));
+                //mMap.addMarker(new MarkerOptions().position(ponto.get(i)).title("ponto.get(i)"));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(ponto.get(i)));
+                System.out.println(Mpontos.get(i).nome);
+                System.out.println(Mpontos.get(i).descricao);
+                System.out.println(Mpontos.get(i).longitude);
+            }
+
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
     }
 
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
 
         for (int i = 0; i < Mpontos.size(); i++) {
             //nome.add(new latitude(String.valueOf(latitude.get(i)), longitude.get(i)));
@@ -81,5 +121,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             System.out.println(Mpontos.get(i).descricao);
             System.out.println(Mpontos.get(i).longitude);
         }
+    }
+
+
+    public String getjson(){
+
+        String json = null;
+
+
+
+        try {
+
+            InputStream is = context.getAssets().open("mapadeigarassu.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }
