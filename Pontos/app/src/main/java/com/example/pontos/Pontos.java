@@ -1,23 +1,34 @@
 package com.example.pontos;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Pontos extends MapsActivity{
 
-    private String Lat;
+    @SerializedName("longitude")
     private String Long;
+
+    @SerializedName("description")
     private String Descricao;
+
+    @SerializedName("name")
     private String Nome;
-    private String adress;
+
+    @SerializedName("latitude")
+    private String Lat;
+
+    @SerializedName("address")
+    private String address;
 
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 
@@ -50,11 +61,11 @@ public class Pontos extends MapsActivity{
         Nome = nome;
     }
 
-    public Pontos(String lat, String lng, String descricao, String nome, String adress){
+    public Pontos(String lat, String lng, String descricao, String nome, String address){
         this.setLat(lat);
         this.setLong(lng);
         this.setDescricao(descricao);
         this.setNome(nome);
-        this.setAdress(adress);
+        this.setAddress(address);
     }
 }
