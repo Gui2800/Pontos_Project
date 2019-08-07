@@ -7,12 +7,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
     TextView txtjson ;
+    List<Pontos> ListPonto = new ArrayList<Pontos>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,25 +32,51 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void readJson(View view) {
+        //Transforma o json em String (Parse)
         String jsonString = IOHelper.stringFromAsset(this, "mapadeigarassu.json");
+
+        //System.out.println(jsonString);
+
         try {
-            //JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray pontos = new JSONArray(jsonString);
+            //Transforma a String em um objeto json
+            JSONObject jsonObject = new JSONObject(jsonString);
+
+
+            //pega o indice do objeto json e transforma em um array de json
+            JSONArray pontosarray = jsonObject.getJSONArray("locations");
+
+            //System.out.println(pontosarray);
 
             String result = "";
-            for (int i = 0; i < pontos.length(); i++) {
-                JSONObject p = pontos.getJSONObject(i);
-                //new Gson().fromJson(city.toString(), City.class);
-                result += "  " + p.getString("name") + "\n" +
-                        " " + p.getString("latitude") + "\n" +
-                        "  " + p.getDouble("longitude") + "\n"+
-                        "  "+ p.getString("address") + "\n" +
-                        "  " + p.getString("description");
+
+            //percorre o array e pega os indices do array e cria um objeto de ponto e add a List
+            for (int i = 0; i < pontosarray.length(); i++) {
+
+
+                ListPonto.add(new Pontos(pontosarray.getJSONObject(i).getString("longitude"), pontosarray.getJSONObject(i).getString("description"), pontosarray.getJSONObject(i).getString("name"), pontosarray.getJSONObject(i).getString("latitude"), pontosarray.getJSONObject(i).getString("address")));
+
+                //System.out.println(pontosarray);
+
             }
-            Log.d("msg", result);
-            txtjson.setText(result);
-        } catch (Exception e) {
-            Log.d("ReadPlacesFeedTask", e.getLocalizedMessage());
+            // Percorre o array e imprimi todos pontos que existe na List
+            show();
+        } catch (JSONException e) {
+            Log.d("jsonException", e.getLocalizedMessage());
+        }
+
+    }
+
+
+
+        public void show(){
+
+        for (Pontos e : ListPonto){
+            System.out.println("ponto");
+            System.out.println(e.getName());
+            System.out.println(e.getLatitude());
+            System.out.println(e.getLongitude());
+            System.out.println(e.getAddress());
+            System.out.println(e.getDescricao());
         }
     }
 
