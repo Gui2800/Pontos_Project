@@ -15,6 +15,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,169 +39,86 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
-    JSONArray location = new JSONArray();
-    String dataJson = String.valueOf(R.raw.mapadeigarassu).toString();
-    private GoogleMap mMap;
-    Context context;
+    TextView txtjson ;
+    List<Pontos> ListPonto = new ArrayList<Pontos>();
 
-    ArrayList<Pontos> Mpontos =  new ArrayList<Pontos>();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-    List<Pontos> pontos;
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-
-    public void teste() throws JSONException {
-
-
-        String json;
-
-
-
-
-        //location = new JSONArray(R.raw.mapadeigarassu);
-
-
-//        ArrayList<ArrayList> data = null;
-//        data.add(nome);
-//        data.add(latitude);
-//        data.add(longitude);
-//        data.add(adress);
-//        data.add(descricao);
-
-
-        try {
-
-            Gson gson = new  Gson();
-
-            JsonModel model = gson.fromJson(getjson(), JsonModel.class);
-
-            pontos = model.getPontos();
-
-
-            for (int i = 0; i < pontos.size(); i++){
-                System.out.println("------------");
-                System.out.println(pontos.get(i).getNome());
-                System.out.println(pontos.get(i).getAdress());
-
-            }
-
-           /* InputStream is = getAssets().open("mapadeigarassu.json");
-
-            int size = is.available();
-            byte[] buffer = new byte[size];
-
-            is.read();
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-           */
-
-
-           // JSONObject obj = new JSONObject(getjson());
-
-            //JSONArray pontosArray = obj.getJSONArray("locations");
-
-            /*
-            for (int i = 0; i < pontosArray.length(); i++) {
-                JSONObject pontoDetail = pontosArray.getJSONObject(i);
-
-                Mpontos.add(new Pontos(pontoDetail.getString("latitude"), pontoDetail.getString("longitude"), pontoDetail.getString("descricao"), pontoDetail.getString("name"), pontoDetail.getString("adress")));
-
-                nome.add(pontoDetail.getString("name"));
-                latitude.add(pontoDetail.getString("latitude"));
-                longitude.add(pontoDetail.getString("longitude"));
-                adress.add(pontoDetail.getString("adress"));
-                descricao.add(pontoDetail.getString("descricao"));
-
-
-            }
-
-            for (int i = 0; i < Mpontos.size(); i++) {
-                //nome.add(new latitude(String.valueOf(latitude.get(i)), longitude.get(i)));
-                //mMap.addMarker(new MarkerOptions().position(ponto.get(i)).title("ponto.get(i)"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(ponto.get(i)));
-                System.out.println(Mpontos.get(i).nome);
-                System.out.println(Mpontos.get(i).descricao);
-                System.out.println(Mpontos.get(i).longitude);
-            }
-
-            */
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        txtjson = (TextView) findViewById(R.id.txt);
 
 
     }
 
 
-        @Override
+    public void readJson(View view) {
+        //Transforma o json em String (Parse)
+        String jsonString = IOHelper.stringFromAsset(this, "mapadeigarassu.json");
+
+        //System.out.println(jsonString);
+
+        try {
+            //Transforma a String em um objeto json
+            JSONObject jsonObject = new JSONObject(jsonString);
+
+
+            //pega o indice do objeto json e transforma em um array de json
+            JSONArray pontosarray = jsonObject.getJSONArray("locations");
+
+            //System.out.println(pontosarray);
+
+            String result = "";
+
+            //percorre o array e pega os indices do array e cria um objeto de ponto e add a List
+            for (int i = 0; i < pontosarray.length(); i++) {
+
+
+                ListPonto.add(new Pontos(pontosarray.getJSONObject(i).getString("longitude"),
+                        pontosarray.getJSONObject(i).getString("description"),
+                        pontosarray.getJSONObject(i).getString("name"),
+                        pontosarray.getJSONObject(i).getString("latitude"),
+                        pontosarray.getJSONObject(i).getString("address")));
+
+                //System.out.println(pontosarray);
+
+            }
+            // Percorre o array e imprime todos pontos que existe na List
+            show();
+        } catch (JSONException e) {
+            Log.d("jsonException", e.getLocalizedMessage());
+        }
+
+    }
+
+
+
+    /*public void show(){
+
+
+        for (Pontos e : ListPonto){
+            System.out.println("ponto");
+            System.out.println(e.getName());
+            System.out.println(e.getLatitude());
+            System.out.println(e.getLongitude());
+            System.out.println(e.getAddress());
+            System.out.println(e.getDescricao());
+        }
+    }*/
+
+    @Override
         public void onMapReady(GoogleMap googleMap) {
 
-        for (int i = 0; i < Mpontos.size(); i++) {
-            //nome.add(new latitude(String.valueOf(latitude.get(i)), longitude.get(i)));
-            //mMap.addMarker(new MarkerOptions().position(ponto.get(i)).title("ponto.get(i)"));
-            //mMap.moveCamera(CameraUpdateFactory.newLatLng(ponto.get(i)));
-        }
-    }
 
-
-    public String getjson(){
-
-        String json = null;
-
-        Context context = this;
-
-        //String jsonString = IOHelper.stringFromAsset(this,"mapadeigarassu.json");
-
-        try {
-
-            InputStream is = context.getAssets().open("mapadeigarassu.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
-    public static  String stringFromStream(InputStream is){
-        try {
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-
-            while ((line = reader.readLine()) != null){
-                sb.append(line).append("\n");
-                reader.close();
-                return sb.toString();
+        for (int i = 0; i < e.size(); i++) {
+            for (Pontos e : ListPonto) {
+                LatLng e.getName(i) = new LatLng(e.getLatitude(i), e.getLongitude(i));
+                mMap.addMarker(new MarkerOptions().position(e.getName(i)).title(e.getName(i)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(e.getName(i)));
             }
-
-        }catch (IOException e){
-            e.printStackTrace();
         }
-
-        return null;
-    }
-
-    public static String stringFromAsset(Context context, String assetFileName){
-        AssetManager am = context.getAssets();
-        try {
-
-            InputStream is = am.open(assetFileName);
-            String result = stringFromStream(is);
-            is.close();
-
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 }

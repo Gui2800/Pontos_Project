@@ -53,12 +53,16 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < pontosarray.length(); i++) {
 
 
-                ListPonto.add(new Pontos(pontosarray.getJSONObject(i).getString("longitude"), pontosarray.getJSONObject(i).getString("description"), pontosarray.getJSONObject(i).getString("name"), pontosarray.getJSONObject(i).getString("latitude"), pontosarray.getJSONObject(i).getString("address")));
+                ListPonto.add(new Pontos(pontosarray.getJSONObject(i).getString("longitude"),
+                        pontosarray.getJSONObject(i).getString("description"),
+                        pontosarray.getJSONObject(i).getString("name"),
+                        pontosarray.getJSONObject(i).getString("latitude"),
+                        pontosarray.getJSONObject(i).getString("address")));
 
                 //System.out.println(pontosarray);
 
             }
-            // Percorre o array e imprimi todos pontos que existe na List
+            // Percorre o array e imprime todos pontos que existe na List
             show();
         } catch (JSONException e) {
             Log.d("jsonException", e.getLocalizedMessage());
