@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
@@ -39,7 +40,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
-    TextView txtjson ;
+    TextView txtjson;
     List<Pontos> ListPonto = new ArrayList<Pontos>();
 
     @Override
@@ -48,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtjson = (TextView) findViewById(R.id.txt);
+//        txtjson = (TextView) findViewById(R.id.txt);
 
 
     }
@@ -95,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    /*public void show(){
+    public void show(){
 
 
         for (Pontos e : ListPonto){
@@ -106,19 +107,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             System.out.println(e.getAddress());
             System.out.println(e.getDescricao());
         }
-    }*/
+    }
 
     @Override
         public void onMapReady(GoogleMap googleMap) {
 
-
-        for (int i = 0; i < e.size(); i++) {
             for (Pontos e : ListPonto) {
-                LatLng e.getName(i) = new LatLng(e.getLatitude(i), e.getLongitude(i));
-                mMap.addMarker(new MarkerOptions().position(e.getName(i)).title(e.getName(i)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(e.getName(i)));
+                String name = e.getName();
+                String latitude = e.getLatitude();
+                String longitude = e.getLongitude();
+
+//                LatLng namee = new LatLng(latitude, longitude);
+//                mMap.addMarker(new MarkerOptions().position(e.getName()).title(e.getName()));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(e.getName()));
             }
-        }
     }
 
 }

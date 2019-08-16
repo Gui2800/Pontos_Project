@@ -1,71 +1,62 @@
 package com.example.pontos;
 
-import com.google.gson.annotations.SerializedName;
+public class Pontos {
 
-import org.json.JSONException;
-import org.json.JSONObject;
+    private String longitude;
 
-public class Pontos extends MapsActivity{
+    private String descricao;
 
-    @SerializedName("longitude")
-    private String Long;
+    private String name;
 
-    @SerializedName("description")
-    private String Descricao;
+    private String latitude;
 
-    @SerializedName("name")
-    private String Nome;
+    private  String address;
 
-    @SerializedName("latitude")
-    private String Lat;
+    public Pontos(String longitude, String descricao, String name, String latitude, String address) {
+        this.longitude = longitude;
+        this.descricao = descricao;
+        this.name = name;
+        this.latitude = latitude;
+        this.address = address;
+    }
 
-    @SerializedName("address")
-    private String address;
+    public String getLongitude() {
+        return longitude;
+    }
 
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 
-    public String getAdress() {
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-
-
-    public String getLat() {
-        return Lat;
-    }
-    public void setLat(String lat) {
-        Lat = lat;
-    }
-
-    public String getLong() {
-        return Long;
-    }
-    public void setLong(String aLong) {
-        Long = aLong;
-    }
-
-    public String getDescricao() {
-        return Descricao;
-    }
-    public void setDescricao(String descricao) {
-        Descricao = descricao;
-    }
-
-    public String getNome() {
-        return Nome;
-    }
-    public void setNome(String nome) {
-        Nome = nome;
-    }
-
-    public Pontos(String lat, String lng, String descricao, String nome, String address){
-        this.setLat(lat);
-        this.setLong(lng);
-        this.setDescricao(descricao);
-        this.setNome(nome);
-        this.setAddress(address);
     }
 }

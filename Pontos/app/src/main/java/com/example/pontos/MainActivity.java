@@ -16,7 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView txtjson ;
+    TextView txtjson;
     List<Pontos> ListPonto = new ArrayList<Pontos>();
 
     @Override
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtjson = (TextView) findViewById(R.id.txt);
+//        txtjson = (TextView) findViewById(R.id.txt);
 
 
     }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             // Percorre o array e imprime todos pontos que existe na List
-            show();
+//            show();
         } catch (JSONException e) {
             Log.d("jsonException", e.getLocalizedMessage());
         }
