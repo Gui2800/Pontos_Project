@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
@@ -20,6 +21,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -38,10 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapsActivity extends AppCompatActivity {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
 
     TextView txtjson;
+    Button btn;
     List<Pontos> ListPonto = new ArrayList<Pontos>();
 
     @Override
@@ -50,7 +53,13 @@ public class MapsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        txtjson = (TextView) findViewById(R.id.txt);
+       // txtjson = (TextView) findViewById(R.id.txt);
+        //btn = (Button) findViewById(R.id.button);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+       mapFragment.getMapAsync(this);
+
 
 
     }
@@ -103,20 +112,18 @@ public class MapsActivity extends AppCompatActivity {
 
         for (Pontos e : ListPonto){
             System.out.println("ponto");
-            System.out.println(e.getNome());
-            System.out.println(e.getLat());
-            System.out.println(e.getLong());
-            System.out.println(e.getAdress());
+            System.out.println(e.getName());
+            System.out.println(e.getLongitude());
+            System.out.println(e.getLatitude());
+            System.out.println(e.getAddress());
             System.out.println(e.getDescricao());
         }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 9c288259aee2f40d8c04dbaa6cb78c51243dabb5
-
+        @Override
         public void onMapReady(GoogleMap googleMap) {
-/*
+
+
         GoogleMap mMap = null;
 
         LatLng teste = new LatLng(300, -300);
@@ -124,7 +131,7 @@ public class MapsActivity extends AppCompatActivity {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(teste));
 
 
-<<<<<<< HEAD
+/*
 
             for (Pontos e : ListPonto) {
                 String nome = e.getNome();
@@ -136,7 +143,6 @@ public class MapsActivity extends AppCompatActivity {
 
             */
 
-=======
             for (Pontos e : ListPonto) {
                 String name = e.getName();
                 String latitude = e.getLatitude();
@@ -146,7 +152,7 @@ public class MapsActivity extends AppCompatActivity {
 //                mMap.addMarker(new MarkerOptions().position(e.getName()).title(e.getName()));
 //                mMap.moveCamera(CameraUpdateFactory.newLatLng(e.getName()));
             }
->>>>>>> 9c288259aee2f40d8c04dbaa6cb78c51243dabb5
+
     }
 
 }
