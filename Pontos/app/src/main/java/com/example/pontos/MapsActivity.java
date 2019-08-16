@@ -12,10 +12,12 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity {
 
 
     TextView txtjson ;
@@ -59,6 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String jsonString = IOHelper.stringFromAsset(this, "mapadeigarassu.json");
 
         //System.out.println(jsonString);
+        txtjson.setText("entrou");
 
         try {
             //Transforma a String em um objeto json
@@ -71,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //System.out.println(pontosarray);
 
             String result = "";
-
+            System.out.println("to aqui =====================");
             //percorre o array e pega os indices do array e cria um objeto de ponto e add a List
             for (int i = 0; i < pontosarray.length(); i++) {
 
@@ -95,30 +98,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    /*public void show(){
+    public void show(){
 
 
         for (Pontos e : ListPonto){
             System.out.println("ponto");
-            System.out.println(e.getName());
-            System.out.println(e.getLatitude());
-            System.out.println(e.getLongitude());
-            System.out.println(e.getAddress());
+            System.out.println(e.getNome());
+            System.out.println(e.getLat());
+            System.out.println(e.getLong());
+            System.out.println(e.getAdress());
             System.out.println(e.getDescricao());
         }
-    }*/
+    }
 
-    @Override
+
         public void onMapReady(GoogleMap googleMap) {
+/*
+        GoogleMap mMap = null;
+
+        LatLng teste = new LatLng(300, -300);
+        mMap.addMarker(new MarkerOptions().position(teste).title("teste"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(teste));
 
 
-        for (int i = 0; i < e.size(); i++) {
+
             for (Pontos e : ListPonto) {
-                LatLng e.getName(i) = new LatLng(e.getLatitude(i), e.getLongitude(i));
+                String nome = e.getNome();
+                LatLng nome = new LatLng(e.getLat(), e.getLong());
+
                 mMap.addMarker(new MarkerOptions().position(e.getName(i)).title(e.getName(i)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(e.getName(i)));
             }
-        }
+
+            */
+
     }
 
 }

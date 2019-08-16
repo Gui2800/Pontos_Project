@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtjson = (TextView) findViewById(R.id.txt);
+        //txtjson = (TextView) findViewById(R.id.txt);
 
 
     }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             // Percorre o array e imprime todos pontos que existe na List
-            show();
+            //show();
         } catch (JSONException e) {
             Log.d("jsonException", e.getLocalizedMessage());
         }
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+/*
     public void show(){
 
         for (Pontos e : ListPonto){
@@ -83,5 +83,6 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(e.getDescricao());
         }
     }
+   */
 
 }
