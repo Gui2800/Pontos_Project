@@ -16,7 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView txtjson ;
+    TextView txtjson;
     List<Pontos> ListPonto = new ArrayList<Pontos>();
 
     @Override

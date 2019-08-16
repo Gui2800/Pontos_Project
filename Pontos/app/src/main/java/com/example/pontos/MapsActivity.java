@@ -41,7 +41,7 @@ import java.util.List;
 public class MapsActivity extends AppCompatActivity {
 
 
-    TextView txtjson ;
+    TextView txtjson;
     List<Pontos> ListPonto = new ArrayList<Pontos>();
 
     @Override
@@ -50,7 +50,7 @@ public class MapsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtjson = (TextView) findViewById(R.id.txt);
+//        txtjson = (TextView) findViewById(R.id.txt);
 
 
     }
@@ -110,7 +110,10 @@ public class MapsActivity extends AppCompatActivity {
             System.out.println(e.getDescricao());
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9c288259aee2f40d8c04dbaa6cb78c51243dabb5
 
         public void onMapReady(GoogleMap googleMap) {
 /*
@@ -121,6 +124,7 @@ public class MapsActivity extends AppCompatActivity {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(teste));
 
 
+<<<<<<< HEAD
 
             for (Pontos e : ListPonto) {
                 String nome = e.getNome();
@@ -132,6 +136,17 @@ public class MapsActivity extends AppCompatActivity {
 
             */
 
+=======
+            for (Pontos e : ListPonto) {
+                String name = e.getName();
+                String latitude = e.getLatitude();
+                String longitude = e.getLongitude();
+
+//                LatLng namee = new LatLng(latitude, longitude);
+//                mMap.addMarker(new MarkerOptions().position(e.getName()).title(e.getName()));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(e.getName()));
+            }
+>>>>>>> 9c288259aee2f40d8c04dbaa6cb78c51243dabb5
     }
 
 }
