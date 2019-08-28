@@ -65,12 +65,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
+
     public void readJson(View view) {
         //Transforma o json em String (Parse)
         String jsonString = IOHelper.stringFromAsset(this, "mapadeigarassu.json");
 
         //System.out.println(jsonString);
-        txtjson.setText("entrou");
+        //txtjson.setText("entrou");
 
         try {
             //Transforma a String em um objeto json
